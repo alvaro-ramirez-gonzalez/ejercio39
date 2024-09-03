@@ -1,0 +1,76 @@
+@startuml
+' Define clases y sus atributos
+class Cliente {
+    - id_cliente: int
+    - nombre_social: String
+    - NIF: String
+    - dirección: String
+    - ciudad: String
+    - teléfono: String
+    - correo_electrónico: String
+    - tipo_cliente: String
+}
+
+class Proveedor {
+    - id_proveedor: int
+    - nombre_social: String
+    - NIF: String
+    - dirección: String
+    - ciudad: String
+    - teléfono: String
+    - correo_electrónico: String
+}
+
+class EntradaMercancia {
+    - codigo_entrada: String
+    - fecha_entrada: LocalDate
+}
+
+class Articulo {
+    - codigo_articulo: String
+    - nombre: String
+    - tamaño_alto: double
+    - tamaño_ancho: double
+    - precio: double
+    - asegurado: boolean
+}
+
+class Ubicacion {
+    - pasillo: String
+    - hueco: String
+    - altura: String
+    - estado: String
+}
+
+class MovimientoAlmacen {
+    - codigo_entrada: String
+    - codigo_articulo: String
+    - unidades_entrada: int
+    - fecha_ubicación: LocalDate
+    - unidades_reservadas: int
+    - unidades_verdaderas: int
+    - fecha_última_modificación: LocalDate
+    - fecha_cierre: LocalDate
+}
+
+class Pedido {
+    - numero_pedido: String
+    - fecha_pedido: LocalDate
+}
+
+class Destinatario {
+    - codigo_destinatario: String
+    - nombre: String
+    - dirección: String
+    - teléfono: String
+}
+
+' Define relaciones entre clases
+Cliente "1" -- "0..*" Proveedor : provee
+Cliente "1" -- "0..*" EntradaMercancia : recibe
+EntradaMercancia "1" -- "0..*" Articulo : contiene
+Articulo "1" -- "1..*" Ubicacion : se almacena en
+MovimientoAlmacen "1" -- "1" Articulo : asocia
+Pedido "1" -- "1" Destinatario : entrega a
+
+@enduml
